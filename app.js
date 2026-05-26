@@ -696,7 +696,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- SAVE REGISTRATION TO DATABASE API ---
-    const API_URL = 'http://localhost:3000/api';
+    const API_URL = window.location.origin + '/api';
 
     async function saveRegistration(regData) {
         const response = await fetch(`${API_URL}/registrations`, {
@@ -715,9 +715,21 @@ document.addEventListener("DOMContentLoaded", () => {
         // Populate the hidden PDF template
         populatePdfFromData(data);
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+        // Wait for images to fully load
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         const pdfElement = document.getElementById("pdf-template");
+        
+        // Ensure all images are loaded before generating PDF
+        const images = pdfElement.querySelectorAll('img');
+        await Promise.all(Array.from(images).map(img => {
+            if (img.complete) return Promise.resolve();
+            return new Promise(resolve => {
+                img.onload = resolve;
+                img.onerror = resolve; // Continue even if image fails to load
+            });
+        }));
+        
         const options = {
             margin: 0,
             filename: filename || `FOMU_YA_MWANAKIKUNDI_${data.jinaKwanza || 'UNKNOWN'}_${data.jinaTatu || 'UNKNOWN'}.pdf`,
@@ -728,7 +740,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 letterRendering: true,
                 logging: false,
                 scrollY: 0,
-                scrollX: 0
+                scrollX: 0,
+                windowWidth: 794,
+                windowHeight: null
             },
             jsPDF: {
                 unit: 'pt',
@@ -779,10 +793,20 @@ document.addEventListener("DOMContentLoaded", () => {
             populatePdfFromData(regData);
 
             // Small delay to make sure UI updates and images render
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Select the template container
             const pdfElement = document.getElementById("pdf-template");
+
+            // Ensure all images are loaded before generating PDF
+            const images = pdfElement.querySelectorAll('img');
+            await Promise.all(Array.from(images).map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.onload = resolve;
+                    img.onerror = resolve; // Continue even if image fails to load
+                });
+            }));
 
             // Configure html2pdf options
             const options = {
@@ -795,7 +819,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     letterRendering: true,
                     logging: false,
                     scrollY: 0,
-                    scrollX: 0
+                    scrollX: 0,
+                    windowWidth: 794,
+                    windowHeight: null
                 },
                 jsPDF: {
                     unit: 'pt',
@@ -886,7 +912,7 @@ async function showAdminDashboard() {
 
     // Load all registrations from Backend API
     try {
-        const response = await fetch('http://localhost:3000/api/registrations');
+        const response = await fetch(`${window.location.origin}/api/registrations`);
         if (response.ok) {
             allRegistrations = await response.json();
             renderAdminTable(allRegistrations);
@@ -1240,7 +1266,7 @@ async function deleteRegistrationRecord(id) {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/registrations/${id}`, {
+        const response = await fetch(`${window.location.origin}/api/registrations/${id}`, {
             method: 'DELETE'
         });
         if (response.ok) {
