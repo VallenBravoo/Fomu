@@ -351,6 +351,11 @@ input.uppercase {
     margin-top: 0.5rem;
 }
 
+.photo-upload-box.small {
+    width: 120px;
+    height: 140px;
+}
+
 .photo-upload-box:hover {
     border-color: var(--color-primary);
     box-shadow: 0 0 10px var(--glow-color);
