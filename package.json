@@ -1,0 +1,23 @@
+{
+  "name": "tusaidiane-msiba-olele-form",
+  "version": "1.0.0",
+  "description": "Online Form and PDF Generator for Tusaidiane - Msiba Olele",
+  "main": "index.html",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "vite",
+    "dev:backend": "node server.js",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "better-sqlite3": "12.10.0",
+    "cors": "2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "4.19.2"
+  },
+  "devDependencies": {
+    "concurrently": "9.2.1",
+    "vite": "5.2.0"
+  }
+}

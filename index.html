@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fomu ya Mwanakikundi - Tusaidiane Msiba Olele</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Signature Pad library -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+    <!-- html2pdf.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <!-- Floating Admin Portal Button -->
+    <div class="admin-float-btn" id="adminFloatBtn" onclick="showAdminLogin()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" class="admin-btn-icon">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <circle cx="12" cy="11" r="3"></circle>
+        </svg>
+        <span>Admin Portal</span>
+    </div>
+
+    <div class="app-container">
+        <!-- Main Form Wrapper -->
+        <main class="form-card" id="formCard">
+            <!-- Header -->
+            <header class="form-header">
+                <div class="logo-area">
+                    <div class="logo-icon">T</div>
+                    <div>
+                        <h1>FOMU YA MWANAKIKUNDI</h1>
+                        <h2>TUSAIDIANE - MSIBA OLELE</h2>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="steps-indicator">
+                    <span class="step-badge active" data-step="1">1</span>
+                    <span class="step-badge" data-step="2">2</span>
+                    <span class="step-badge" data-step="3">3</span>
+                    <span class="step-badge" data-step="4">4</span>
+                    <span class="step-badge" data-step="5">5</span>
+                </div>
+            </header>
+
+            <!-- Form -->
+            <form id="onlineForm" onsubmit="event.preventDefault();">
+                <!-- STEP 1: Taarifa Binafsi -->
+                <section class="form-step active" id="step-1">
+                    <div class="step-title">
+                        <h3>1. Taarifa za Mwanakikundi</h3>
+                        <p>Jaza majina matatu kwa herufi kubwa na hakikisha umejaza taarifa zote kwa usahihi.</p>
+                    </div>
+
+                    <div class="grid-layout">
+                        <!-- Left inputs -->
+                        <div class="span-8 grid-layout">
+                            <div class="form-group span-4">
+                                <label for="jinaKwanza">Jina la Kwanza <span class="required">*</span></label>
+                                <input type="text" id="jinaKwanza" name="jinaKwanza" placeholder="MF. JOHN" required class="uppercase">
+                            </div>
+                            <div class="form-group span-4">
+                                <label for="jinaPili">Jina la Pili <span class="required">*</span></label>
+                                <input type="text" id="jinaPili" name="jinaPili" placeholder="MF. JOSEPH" required class="uppercase">
+                            </div>
+                            <div class="form-group span-4">
+                                <label for="jinaTatu">Jina la Tatu <span class="required">*</span></label>
+                                <input type="text" id="jinaTatu" name="jinaTatu" placeholder="MF. MASSAWE" required class="uppercase">
+                            </div>
+                            <div class="form-group span-4">
+                                <label for="umri">Umri <span class="required">*</span></label>
+                                <input type="number" id="umri" name="umri" min="18" max="120" placeholder="Miaka" required>
+                            </div>
+                            <div class="form-group span-8">
+                                <label>Jinsia (Weka Vema) <span class="required">*</span></label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="jinsia" value="Mwanaume" required>
+                                        <span class="radio-custom"></span> Mwanaume
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="jinsia" value="Mwanamke" required>
+                                        <span class="radio-custom"></span> Mwanamke
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right passport photo upload -->
+                        <div class="span-4 flex-center flex-column">
+                            <label>Picha ya Pasipoti (Passport size) <span class="required">*</span></label>
+                            <div class="photo-upload-box" id="memberPhotoUpload">
+                                <input type="file" id="memberPhotoFile" accept="image/*" class="file-input" required aria-label="Picha ya pasipoti ya mwanakikundi">
+                                <div class="upload-placeholder" id="memberPhotoPlaceholder">
+                                    <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                        <circle cx="12" cy="13" r="4"></circle>
+                                    </svg>
+                                    <span>Weka picha hapa</span>
+                                    <span class="small-text">(Max 2MB)</span>
+                                </div>
+                                <img src="" id="memberPhotoPreview" class="photo-preview hidden" alt="Passport size member photo">
+                                <button type="button" class="remove-photo-btn hidden" id="removeMemberPhoto">Futa</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <div></div> <!-- Spacer -->
+                        <button type="button" class="btn btn-primary" onclick="nextStep(1)">Endelea</button>
+                    </div>
+                </section>
+
+                <!-- STEP 2: Sehemu Anapoishi na Asili Rombo -->
+                <section class="form-step" id="step-2">
+                    <div class="step-title">
+                        <h3>1.1 Sehemu Anapoishi Mwanakikundi</h3>
+                        <p>Weka taarifa za eneo unaloishi kwa sasa na mawasiliano yako.</p>
+                    </div>
+
+                    <div class="grid-layout">
+                        <div class="form-group span-6">
+                            <label for="mkoaUnaloishi">Mkoa Unaoishi <span class="required">*</span></label>
+                            <input type="text" id="mkoaUnaloishi" name="mkoaUnaloishi" placeholder="MF. KILIMANJARO" required class="uppercase">
+                        </div>
+                        <div class="form-group span-6">
+                            <label for="wilayaUnaloishi">Wilaya Unayoishi <span class="required">*</span></label>
+                            <input type="text" id="wilayaUnaloishi" name="wilayaUnaloishi" placeholder="MF. MOSHI" required class="uppercase">
+                        </div>
+                        <div class="form-group span-6">
+                            <label for="kataUnaloishi">Kata Unayoishi <span class="required">*</span></label>
+                            <input type="text" id="kataUnaloishi" name="kataUnaloishi" placeholder="MF. MAJI YA CHAI" required class="uppercase">
+                        </div>
+                        <div class="form-group span-6">
+                            <label for="nambaSimu">Namba ya Simu <span class="required">*</span></label>
+                            <input type="tel" id="nambaSimu" name="nambaSimu" placeholder="MF. 07XXXXXXXX" required>
+                        </div>
+                    </div>
+
+                    <div class="step-title mt-4">
+                        <h3>1.2 Sehemu Anapotokea Mwanakikundi Wilayani Rombo</h3>
+                        <p>Weka taarifa za chimbuko lako la kiasili wilayani Rombo.</p>
+                    </div>
+
+                    <div class="grid-layout">
+                        <div class="form-group span-6">
+                            <label for="kataUnayotokea">Kata Unayotokea <span class="required">*</span></label>
+                            <input type="text" id="kataUnayotokea" name="kataUnayotokea" placeholder="MF. USERI" required class="uppercase">
+                        </div>
+                        <div class="form-group span-6">
+                            <label for="kijijiUnachotokea">Kijiji Unachotokea <span class="required">*</span></label>
+                            <input type="text" id="kijijiUnachotokea" name="kijijiUnachotokea" placeholder="MF. KIRAENI" required class="uppercase">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(2)">Rudi Nyuma</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(2)">Endelea</button>
+                    </div>
+                </section>
+
+                <!-- STEP 3: Taarifa za Wategemezi -->
+                <section class="form-step" id="step-3">
+                    <div class="step-title">
+                        <h3>2. Taarifa za Wategemezi</h3>
+                        <p>Ongeza wategemezi wako na uweke taarifa zao pamoja na picha ya pasipoti (Passport size).</p>
+                    </div>
+
+                    <div id="dependentsContainer" class="dependents-list">
+                        <!-- Dependents will be added here dynamically -->
+                    </div>
+
+                    <button type="button" class="btn btn-outline w-100 flex-center" id="addDependentBtn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="add-dep-icon">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Ongeza Mtegemezi
+                    </button>
+
+                    <div class="form-actions mt-4">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(3)">Rudi Nyuma</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(3)">Endelea</button>
+                    </div>
+                </section>
+
+                <!-- STEP 4: Mtu wa Karibu na Wadhamini -->
+                <section class="form-step" id="step-4">
+                    <div class="step-title">
+                        <h3>1. Taarifa za Mtu wa Karibu na Wadhamini</h3>
+                        <p>1. Mtu wa karibu atakayechukua rambirambi endapo mwanakikundi atafariki (Upeo wa watu 4).</p>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table" id="nextOfKinTable">
+                            <thead>
+                                <tr>
+                                    <th width="8%">Na.</th>
+                                    <th>Jina Kamili <span class="required">*</span></th>
+                                    <th width="30%">Namba ya Simu <span class="required">*</span></th>
+                                    <th width="25%">Mahusiano <span class="required">*</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>i.</td>
+                                    <td><input type="text" name="nokJina_1" placeholder="JINA LA KWANZA & LA UKOO" required class="uppercase"></td>
+                                    <td><input type="tel" name="nokSimu_1" placeholder="07XXXXXXXX" required></td>
+                                    <td><input type="text" name="nokUhusiano_1" placeholder="MF. MKE/MUME/MTOTO" required class="uppercase"></td>
+                                </tr>
+                                <tr>
+                                    <td>ii.</td>
+                                    <td><input type="text" name="nokJina_2" placeholder="JINA LA KWANZA & LA UKOO" class="uppercase"></td>
+                                    <td><input type="tel" name="nokSimu_2" placeholder="07XXXXXXXX"></td>
+                                    <td><input type="text" name="nokUhusiano_2" placeholder="MF. MTOTO/KAKA" class="uppercase"></td>
+                                </tr>
+                                <tr>
+                                    <td>iii.</td>
+                                    <td><input type="text" name="nokJina_3" placeholder="JINA LA KWANZA & LA UKOO" class="uppercase"></td>
+                                    <td><input type="tel" name="nokSimu_3" placeholder="07XXXXXXXX"></td>
+                                    <td><input type="text" name="nokUhusiano_3" placeholder="MF. DADA" class="uppercase"></td>
+                                </tr>
+                                <tr>
+                                    <td>iv.</td>
+                                    <td><input type="text" name="nokJina_4" placeholder="JINA LA KWANZA & LA UKOO" class="uppercase"></td>
+                                    <td><input type="tel" name="nokSimu_4" placeholder="07XXXXXXXX"></td>
+                                    <td><input type="text" name="nokUhusiano_4" placeholder="MF. MPWA" class="uppercase"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="step-title mt-4">
+                        <p>2. Wadhamini (Upeo wa wadhamini 2).</p>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table" id="guarantorsTable">
+                            <thead>
+                                <tr>
+                                    <th width="8%">Na.</th>
+                                    <th>Jina Kamili <span class="required">*</span></th>
+                                    <th width="30%">Namba ya Simu <span class="required">*</span></th>
+                                    <th width="25%">Mahusiano <span class="required">*</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>i.</td>
+                                    <td><input type="text" name="wadhaminiJina_1" placeholder="JINA LA KWANZA & LA UKOO" required class="uppercase"></td>
+                                    <td><input type="tel" name="wadhaminiSimu_1" placeholder="07XXXXXXXX" required></td>
+                                    <td><input type="text" name="wadhaminiUhusiano_1" placeholder="MF. RAFIKI/JIRANI" required class="uppercase"></td>
+                                </tr>
+                                <tr>
+                                    <td>ii.</td>
+                                    <td><input type="text" name="wadhaminiJina_2" placeholder="JINA LA KWANZA & LA UKOO" class="uppercase"></td>
+                                    <td><input type="tel" name="wadhaminiSimu_2" placeholder="07XXXXXXXX"></td>
+                                    <td><input type="text" name="wadhaminiUhusiano_2" placeholder="MF. RAFIKI" class="uppercase"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(4)">Rudi Nyuma</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(4)">Endelea</button>
+                    </div>
+                </section>
+
+                <!-- STEP 5: Uthibitisho na Saini -->
+                <section class="form-step" id="step-5">
+                    <div class="step-title">
+                        <h3>2. Uthibitisho wa Mwanakikundi</h3>
+                    </div>
+
+                    <div class="declaration-box">
+                        <p>“Mimi mtajwa hapo juu, nathibitisha kwamba taarifa zote nilizojaza hapo juu ni za ukweli.”</p>
+                    </div>
+
+                    <div class="signature-section">
+                        <div class="signature-wrapper">
+                            <label>Weka Saini ya Mwanakikundi Hapa <span class="required">*</span></label>
+                            <div class="signature-pad-container">
+                                <canvas id="signatureCanvas" width="500" height="200"></canvas>
+                            </div>
+                            <div class="signature-actions">
+                                <button type="button" class="btn btn-small btn-secondary" id="clearSignatureBtn">Futa Saini</button>
+                                <span class="pad-instruction">Tumia kidole au kalamu ya skrini kusaini hapo juu.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3 signature-date-wrapper">
+                            <label for="tareheSaini">Tarehe ya Saini <span class="required">*</span></label>
+                            <input type="date" id="tareheSaini" name="tareheSaini" required>
+                        </div>
+                    </div>
+
+                    <!-- Action loading indicators and final action buttons -->
+                    <div class="status-indicator hidden" id="statusIndicator">
+                        <div class="spinner"></div>
+                        <span id="statusMessage">Inatengeneza PDF... Tafadhali subiri.</span>
+                    </div>
+
+                    <div class="form-actions mt-4">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(5)" id="finalPrevBtn">Rudi Nyuma</button>
+                        <button type="button" class="btn btn-success" id="submitFormBtn">Kamilisha & Pakua PDF</button>
+                    </div>
+                </section>
+            </form>
+        </main>
+
+        <!-- Admin Dashboard Wrapper -->
+        <main class="form-card hidden" id="adminDashboardCard">
+            <header class="form-header">
+                <div class="logo-area admin-header-flex">
+                    <div class="admin-logo-group">
+                        <div class="logo-icon">A</div>
+                        <div>
+                            <h1>ADMIN PORTAL - TUSAIDIANE</h1>
+                            <h2>USIMAMIZI WA FOMU NA WANAKIKUNDI</h2>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger admin-logout-btn" onclick="handleAdminLogout()">Ondoka</button>
+                </div>
+            </header>
+
+            <section class="admin-dashboard-content">
+                <div class="admin-stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-num" id="totalRegistrations">0</span>
+                        <span class="stat-label">Jumla ya Wanachama Waliojisajili</span>
+                    </div>
+                </div>
+
+                <div class="admin-search-bar">
+                    <input type="text" id="adminSearchInput" class="admin-search-input" placeholder="Tafuta kwa jina la mwanakikundi..." oninput="filterRegistrations()">
+                    <button type="button" class="btn btn-primary" onclick="exportToCsv()">Pakua Orodha (CSV)</button>
+                </div>
+
+                <div class="table-responsive admin-table-container">
+                    <table class="data-table" id="adminTable">
+                        <thead>
+                            <tr>
+                                <th width="8%">Na.</th>
+                                <th>Jina Kamili</th>
+                                <th width="25%">Namba ya Simu</th>
+                                <th width="22%">Tarehe ya Saini</th>
+                                <th width="25%">Vitendo (Actions)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div class="modal-overlay hidden" id="adminLoginModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Ingia Kama Admin</h3>
+                <button type="button" class="close-modal-btn" onclick="hideAdminLogin()">✕</button>
+            </div>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsername">Username <span class="required">*</span></label>
+                    <input type="text" id="adminUsername" class="modal-input-no-transform" required placeholder="Weka jina la mtumiaji">
+                </div>
+                <div class="form-group mt-3">
+                    <label for="adminPassword">Nenosiri (Password) <span class="required">*</span></label>
+                    <input type="password" id="adminPassword" required placeholder="Weka nenosiri">
+                </div>
+                <div id="loginErrorMessage" class="error-text hidden mt-2 admin-error-message">Username au nenosiri sio sahihi!</div>
+                <div class="modal-actions mt-4">
+                    <button type="button" class="btn btn-secondary" onclick="hideAdminLogin()">Ghairi</button>
+                    <button type="submit" class="btn btn-primary">Ingia</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hidden PDF Template Container (Rendered off-view but kept in viewport for correct browser layout calculations) -->
+    <div id="pdf-container-wrapper">
+        <div id="pdf-template" class="pdf-page-container">
+            <!-- PAGE 1 -->
+            <div class="pdf-page" id="pdf-page-1">
+                <div class="pdf-header text-center">
+                    <h2 class="pdf-title-main">FOMU YA MWANAKIKUNDI</h2>
+                    <h3 class="pdf-title-sub">TUSAIDIANE - MSIBA OLELE</h3>
+                </div>
+
+                <div class="pdf-section">
+                    <h4 class="pdf-section-title">1 TAARIFA ZA MWANAKIKUNDI</h4>
+                    <p class="pdf-section-instruction">(Maelezo: Jaza majina matatu kwa herufi kubwa, hakikisha umejaza taarifa zote kwa usahihi)</p>
+
+                    <table class="pdf-table borderless-table">
+                        <tr>
+                            <td width="5%">Na.</td>
+                            <td width="20%">Aina ya taarifa</td>
+                            <td width="25%">Jina la Kwanza</td>
+                            <td width="25%">Jina la Pili</td>
+                            <td width="25%">Jina la tatu</td>
+                        </tr>
+                        <tr>
+                            <td>i.</td>
+                            <td>Jina la Mwanakikundi</td>
+                            <td><span class="pdf-value uppercase" id="pdfValJinaKwanza"></span></td>
+                            <td><span class="pdf-value uppercase" id="pdfValJinaPili"></span></td>
+                            <td><span class="pdf-value uppercase" id="pdfValJinaTatu"></span></td>
+                        </tr>
+                    </table>
+
+                    <div class="pdf-row-flex mt-2">
+                        <div class="pdf-flex-1">
+                            <table class="pdf-table borderless-table">
+                                <tr>
+                                    <td width="5%">ii.</td>
+                                    <td width="40%">Jinsia (Weka Vema):</td>
+                                    <td>
+                                        Mwanaume: <span class="pdf-checkbox-box" id="pdfValJinsiaMe">[  ]</span>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        Mwanamke: <span class="pdf-checkbox-box" id="pdfValJinsiaKe">[  ]</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>iii.</td>
+                                    <td>Umri:</td>
+                                    <td><span class="pdf-value" id="pdfValUmri"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="pdf-photo-box-wrapper">
+                            <div class="pdf-photo-box">
+                                <img src="" id="pdfValMemberPhoto" class="pdf-inserted-photo hidden" alt="Picha ya mwanakikundi">
+                                <div class="pdf-photo-label" id="pdfValMemberPhotoPlaceholder">Weka picha yako hapa<br>(Passport size)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pdf-section">
+                    <h4 class="pdf-section-title">1.1 SEHEMU ANAPOISHI MWANAKIKUNDI</h4>
+                    <table class="pdf-table info-line-table">
+                        <tr>
+                            <td width="5%">i.</td>
+                            <td width="30%">Mkoa unaoishi</td>
+                            <td width="5%">:</td>
+                            <td><span class="pdf-value uppercase" id="pdfValMkoaUnaloishi"></span></td>
+                        </tr>
+                        <tr>
+                            <td>ii.</td>
+                            <td>Wilaya unayoishi</td>
+                            <td>:</td>
+                            <td><span class="pdf-value uppercase" id="pdfValWilayaUnaloishi"></span></td>
+                        </tr>
+                        <tr>
+                            <td>iii.</td>
+                            <td>Kata unayoishi</td>
+                            <td>:</td>
+                            <td><span class="pdf-value uppercase" id="pdfValKataUnaloishi"></span></td>
+                        </tr>
+                        <tr>
+                            <td>iv.</td>
+                            <td>Namba ya Simu</td>
+                            <td>:</td>
+                            <td><span class="pdf-value" id="pdfValNambaSimu"></span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="pdf-section">
+                    <h4 class="pdf-section-title">1.2 SEHEMU ANAPOTOKEA MWANAKIKUNDI WILAYANI ROMBO</h4>
+                    <table class="pdf-table info-line-table">
+                        <tr>
+                            <td width="5%">i.</td>
+                            <td width="30%">Kata unayotokea</td>
+                            <td width="5%">:</td>
+                            <td><span class="pdf-value uppercase" id="pdfValKataUnayotokea"></span></td>
+                        </tr>
+                        <tr>
+                            <td>ii.</td>
+                            <td>Kijiji unachotokea</td>
+                            <td>:</td>
+                            <td><span class="pdf-value uppercase" id="pdfValKijijiUnachotokea"></span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="pdf-section">
+                    <h4 class="pdf-section-title">2 TAARIFA ZA WATEGEMEZI</h4>
+                    <table class="pdf-table pdf-dependents-table text-center" id="pdfDependentsTable">
+                        <thead>
+                            <tr>
+                                <th width="35%">Jina (Majina matatu)</th>
+                                <th width="15%">Mahusiano</th>
+                                <th width="10%">Umri</th>
+                                <th width="20%">Namba ya simu</th>
+                                <th width="20%">Picha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pdfDependentsBody">
+                            <!-- Populated dynamically via JS. Exactly 5 visual rows can fit or we can print whatever has been added -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PAGE 2 -->
+            <div class="pdf-page" id="pdf-page-2">
+                <div class="pdf-section">
+                    <h4 class="pdf-section-title">1 TAARIFA ZA MTU WA KARIBU NA WADHAMINI</h4>
+                    
+                    <h5 class="pdf-subsection-title">1. MTU WA KARIBU ATAKAYECHUKUA RAMBIRAMBI ENDAPO MWANAKIKUNDI ATAFARIKI</h5>
+                    <table class="pdf-table pdf-data-grid">
+                        <thead>
+                            <tr>
+                                <th width="8%">Na.</th>
+                                <th>Jina</th>
+                                <th width="35%">Namba ya Simu</th>
+                                <th width="25%">Mahusiano</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>i.</td>
+                                <td><span id="pdfValNokJina_1" class="uppercase"></span></td>
+                                <td><span id="pdfValNokSimu_1"></span></td>
+                                <td><span id="pdfValNokUhusiano_1" class="uppercase"></span></td>
+                            </tr>
+                            <tr>
+                                <td>ii.</td>
+                                <td><span id="pdfValNokJina_2" class="uppercase"></span></td>
+                                <td><span id="pdfValNokSimu_2"></span></td>
+                                <td><span id="pdfValNokUhusiano_2" class="uppercase"></span></td>
+                            </tr>
+                            <tr>
+                                <td>iii.</td>
+                                <td><span id="pdfValNokJina_3" class="uppercase"></span></td>
+                                <td><span id="pdfValNokSimu_3"></span></td>
+                                <td><span id="pdfValNokUhusiano_3" class="uppercase"></span></td>
+                            </tr>
+                            <tr>
+                                <td>iv.</td>
+                                <td><span id="pdfValNokJina_4" class="uppercase"></span></td>
+                                <td><span id="pdfValNokSimu_4"></span></td>
+                                <td><span id="pdfValNokUhusiano_4" class="uppercase"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h5 class="pdf-subsection-title mt-3">2. WADHAMINI</h5>
+                    <table class="pdf-table pdf-data-grid">
+                        <thead>
+                            <tr>
+                                <th width="8%">Na.</th>
+                                <th>Jina</th>
+                                <th width="35%">Namba ya Simu</th>
+                                <th width="25%">Mahusiano</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>i.</td>
+                                <td><span id="pdfValWadhaminiJina_1" class="uppercase"></span></td>
+                                <td><span id="pdfValWadhaminiSimu_1"></span></td>
+                                <td><span id="pdfValWadhaminiUhusiano_1" class="uppercase"></span></td>
+                            </tr>
+                            <tr>
+                                <td>ii.</td>
+                                <td><span id="pdfValWadhaminiJina_2" class="uppercase"></span></td>
+                                <td><span id="pdfValWadhaminiSimu_2"></span></td>
+                                <td><span id="pdfValWadhaminiUhusiano_2" class="uppercase"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="pdf-section mt-4">
+                    <h4 class="pdf-section-title">2 UTHIBITISHO WA MWANAKIKUNDI</h4>
+                    <p class="pdf-declaration-text">Mimi mtajwa hapo juu, nathibitisha kwamba taarifa zote nilizojaza hapo juu ni za ukweli.</p>
+
+                    <div class="pdf-signature-block">
+                        <table class="pdf-table borderless-table compact-table">
+                            <tr>
+                                <td width="15%">Saini ya Mwanakikundi</td>
+                                <td width="5%">:</td>
+                                <td width="40%">
+                                    <div class="pdf-sig-container">
+                                        <img src="" id="pdfValMemberSignature" class="pdf-signature-img hidden" alt="Saini">
+                                        <span class="pdf-dotted-line">......................................................</span>
+                                    </div>
+                                </td>
+                                <td width="10%">Tarehe</td>
+                                <td width="5%">:</td>
+                                <td>
+                                    <span class="pdf-dotted-line"><span id="pdfValTareheSaini"></span></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Saini ya Katibu</td>
+                                <td>:</td>
+                                <td><span class="pdf-dotted-line">......................................................</span></td>
+                                <td>Tarehe</td>
+                                <td>:</td>
+                                <td><span class="pdf-dotted-line">......................................................</span></td>
+                            </tr>
+                            <tr>
+                                <td>Saini ya Mwenyekiti</td>
+                                <td>:</td>
+                                <td><span class="pdf-dotted-line">......................................................</span></td>
+                                <td>Tarehe</td>
+                                <td>:</td>
+                                <td><span class="pdf-dotted-line">......................................................</span></td>
+                            </tr>
+                            <tr>
+                                <td>Saini ya Bodi</td>
+                                <td>:</td>
+                                <td><span class="pdf-dotted-line">......................................................</span></td>
+                                <td>Tarehe</td>
+                                <td>:</td>
+                                <td><span class="pdf-dotted-line">......................................................</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Controller -->
+    <script src="app.js"></script>
+</body>
+</html>
