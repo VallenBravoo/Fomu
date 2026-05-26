@@ -696,7 +696,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- SAVE REGISTRATION TO DATABASE API ---
-    const API_URL = 'http://localhost:3000/api';
+    const API_URL = window.location.origin + '/api';
 
     async function saveRegistration(regData) {
         const response = await fetch(`${API_URL}/registrations`, {
@@ -886,7 +886,7 @@ async function showAdminDashboard() {
 
     // Load all registrations from Backend API
     try {
-        const response = await fetch('http://localhost:3000/api/registrations');
+        const response = await fetch(`${window.location.origin}/api/registrations`);
         if (response.ok) {
             allRegistrations = await response.json();
             renderAdminTable(allRegistrations);
@@ -1240,7 +1240,7 @@ async function deleteRegistrationRecord(id) {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/registrations/${id}`, {
+        const response = await fetch(`${window.location.origin}/api/registrations/${id}`, {
             method: 'DELETE'
         });
         if (response.ok) {
