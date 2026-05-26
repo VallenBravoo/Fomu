@@ -1202,12 +1202,12 @@ input.uppercase {
 
 #pdf-container-wrapper {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: -9999px;
+    left: -9999px;
     width: 794px;
-    z-index: -1000;
-    opacity: 0;
+    z-index: -1;
     pointer-events: none;
+    visibility: hidden;
 }
 
 .admin-header-flex {
